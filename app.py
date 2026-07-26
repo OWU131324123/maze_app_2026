@@ -1,6 +1,4 @@
-from pathlib import Path
-
-code = r'''import csv
+import csv
 import html
 import os
 import uuid
@@ -122,17 +120,72 @@ CATEGORY_SCORES = {
     "K-POP": {"E": 2, "S": 1, "F": 1, "P": 1},
     "洋楽ポップ": {"E": 2, "S": 1, "P": 1},
     "ロック": {"E": 1, "N": 1, "T": 1, "P": 1},
-    "ヒップホップ・ラップ": {"E": 2, "S": 1, "T": 1, "P": 2},
-    "R&B・ソウル": {"I": 1, "N": 1, "F": 2, "P": 1},
-    "EDM・ダンス": {"E": 2, "S": 2, "T": 1, "P": 2},
-    "ジャズ": {"I": 1, "N": 2, "T": 1, "P": 2},
-    "クラシック": {"I": 2, "N": 1, "T": 2, "J": 2},
-    "アニソン": {"E": 1, "N": 2, "F": 2, "P": 1},
-    "ボーカロイド": {"I": 1, "N": 2, "T": 1, "P": 2},
-    "インディーズ": {"I": 2, "N": 2, "F": 1, "P": 2},
-    "映画・ドラマ音楽": {"I": 2, "N": 2, "F": 2, "J": 1},
-    "ゲーム音楽": {"I": 1, "N": 2, "T": 1, "P": 1},
-    "その他": {"I": 1, "N": 1, "F": 1, "P": 1},
+    "ヒップホップ・ラップ": {
+        "E": 2,
+        "S": 1,
+        "T": 1,
+        "P": 2,
+    },
+    "R&B・ソウル": {
+        "I": 1,
+        "N": 1,
+        "F": 2,
+        "P": 1,
+    },
+    "EDM・ダンス": {
+        "E": 2,
+        "S": 2,
+        "T": 1,
+        "P": 2,
+    },
+    "ジャズ": {
+        "I": 1,
+        "N": 2,
+        "T": 1,
+        "P": 2,
+    },
+    "クラシック": {
+        "I": 2,
+        "N": 1,
+        "T": 2,
+        "J": 2,
+    },
+    "アニソン": {
+        "E": 1,
+        "N": 2,
+        "F": 2,
+        "P": 1,
+    },
+    "ボーカロイド": {
+        "I": 1,
+        "N": 2,
+        "T": 1,
+        "P": 2,
+    },
+    "インディーズ": {
+        "I": 2,
+        "N": 2,
+        "F": 1,
+        "P": 2,
+    },
+    "映画・ドラマ音楽": {
+        "I": 2,
+        "N": 2,
+        "F": 2,
+        "J": 1,
+    },
+    "ゲーム音楽": {
+        "I": 1,
+        "N": 2,
+        "T": 1,
+        "P": 1,
+    },
+    "その他": {
+        "I": 1,
+        "N": 1,
+        "F": 1,
+        "P": 1,
+    },
 }
 
 THEME_SCORES = {
@@ -140,7 +193,11 @@ THEME_SCORES = {
     "失恋": {"I": 1, "F": 2, "N": 1},
     "片思い": {"I": 1, "F": 2, "N": 1},
     "友情": {"E": 1, "F": 2},
-    "応援・ファイトソング": {"E": 2, "S": 1, "J": 1},
+    "応援・ファイトソング": {
+        "E": 2,
+        "S": 1,
+        "J": 1,
+    },
     "青春": {"E": 1, "F": 1, "P": 1},
     "自己肯定": {"E": 1, "F": 1, "J": 1},
     "夢・希望": {"N": 2, "F": 1, "J": 1},
@@ -149,13 +206,37 @@ THEME_SCORES = {
     "家族": {"F": 2, "J": 1},
     "孤独": {"I": 2, "N": 1},
     "自由": {"N": 1, "P": 2},
-    "社会・メッセージ": {"N": 1, "T": 2, "J": 1},
-    "パーティー": {"E": 2, "S": 1, "P": 2},
-    "ドライブ": {"E": 1, "S": 1, "P": 1},
-    "作業・勉強": {"I": 1, "T": 1, "J": 2},
-    "睡眠・リラックス": {"I": 2, "F": 1, "P": 1},
+    "社会・メッセージ": {
+        "N": 1,
+        "T": 2,
+        "J": 1,
+    },
+    "パーティー": {
+        "E": 2,
+        "S": 1,
+        "P": 2,
+    },
+    "ドライブ": {
+        "E": 1,
+        "S": 1,
+        "P": 1,
+    },
+    "作業・勉強": {
+        "I": 1,
+        "T": 1,
+        "J": 2,
+    },
+    "睡眠・リラックス": {
+        "I": 2,
+        "F": 1,
+        "P": 1,
+    },
     "季節": {"S": 2, "F": 1},
-    "物語・世界観": {"I": 1, "N": 2, "F": 1},
+    "物語・世界観": {
+        "I": 1,
+        "N": 2,
+        "F": 1,
+    },
     "特にない・分からない": {},
 }
 
@@ -196,67 +277,116 @@ VIBE_SCORES = {
 TYPE_INFORMATION = {
     "INTJ": {
         "name": "建築家",
-        "description": "曲の構成や世界観を深く味わい、自分なりの基準で音楽を選ぶタイプです。",
+        "description": (
+            "曲の構成や世界観を深く味わい、"
+            "自分なりの基準で音楽を選ぶタイプです。"
+        ),
     },
     "INTP": {
         "name": "論理学者",
-        "description": "独特な音や新しい表現に惹かれ、ジャンルを越えて音楽を探索するタイプです。",
+        "description": (
+            "独特な音や新しい表現に惹かれ、"
+            "ジャンルを越えて音楽を探索するタイプです。"
+        ),
     },
     "ENTJ": {
         "name": "指揮官",
-        "description": "力強い音楽を好み、目的や場面に合わせて選曲するタイプです。",
+        "description": (
+            "力強い音楽を好み、"
+            "目的や場面に合わせて選曲するタイプです。"
+        ),
     },
     "ENTP": {
         "name": "討論者",
-        "description": "意外な曲や新しい組み合わせを楽しみ、幅広い音楽を試すタイプです。",
+        "description": (
+            "意外な曲や新しい組み合わせを楽しみ、"
+            "幅広い音楽を試すタイプです。"
+        ),
     },
     "INFJ": {
         "name": "提唱者",
-        "description": "曲の物語や感情の流れを大切にし、深く共感できる音楽を選ぶタイプです。",
+        "description": (
+            "曲の物語や感情の流れを大切にし、"
+            "深く共感できる音楽を選ぶタイプです。"
+        ),
     },
     "INFP": {
         "name": "仲介者",
-        "description": "切なさや幻想性など、心を動かす音楽を自分の思い出として大切にするタイプです。",
+        "description": (
+            "切なさや幻想性など、心を動かす音楽を"
+            "自分の思い出として大切にするタイプです。"
+        ),
     },
     "ENFJ": {
         "name": "主人公",
-        "description": "人と気持ちを共有できる音楽を好み、好きな曲を周囲にも紹介するタイプです。",
+        "description": (
+            "人と気持ちを共有できる音楽を好み、"
+            "好きな曲を周囲にも紹介するタイプです。"
+        ),
     },
     "ENFP": {
         "name": "運動家",
-        "description": "新鮮な曲を積極的に探し、気分に合わせて多彩な音楽を楽しむタイプです。",
+        "description": (
+            "新鮮な曲を積極的に探し、"
+            "気分に合わせて多彩な音楽を楽しむタイプです。"
+        ),
     },
     "ISTJ": {
         "name": "管理者",
-        "description": "安心して聴ける定番曲を大切にし、目的別に音楽を整理するタイプです。",
+        "description": (
+            "安心して聴ける定番曲を大切にし、"
+            "目的別に音楽を整理するタイプです。"
+        ),
     },
     "ISFJ": {
         "name": "擁護者",
-        "description": "懐かしさや安心感のある曲を好み、音楽と思い出を結び付けるタイプです。",
+        "description": (
+            "懐かしさや安心感のある曲を好み、"
+            "音楽と思い出を結び付けるタイプです。"
+        ),
     },
     "ESTJ": {
         "name": "幹部",
-        "description": "分かりやすく力強い音楽を、作業や移動などの目的に合わせて選ぶタイプです。",
+        "description": (
+            "分かりやすく力強い音楽を、"
+            "作業や移動などの目的に合わせて選ぶタイプです。"
+        ),
     },
     "ESFJ": {
         "name": "領事",
-        "description": "親しみやすく明るい音楽を好み、人と共有して楽しむタイプです。",
+        "description": (
+            "親しみやすく明るい音楽を好み、"
+            "人と共有して楽しむタイプです。"
+        ),
     },
     "ISTP": {
         "name": "巨匠",
-        "description": "音の質感やリズムの格好よさに注目し、音そのものを楽しむタイプです。",
+        "description": (
+            "音の質感やリズムの格好よさに注目し、"
+            "音そのものを楽しむタイプです。"
+        ),
     },
     "ISFP": {
         "name": "冒険家",
-        "description": "曲の雰囲気や色彩を直感的に捉え、その時の感情に合う音楽を選ぶタイプです。",
+        "description": (
+            "曲の雰囲気や色彩を直感的に捉え、"
+            "その時の感情に合う音楽を選ぶタイプです。"
+        ),
     },
     "ESTP": {
         "name": "起業家",
-        "description": "勢いやリズムを身体で感じ、ライブ映えする音楽を楽しむタイプです。",
+        "description": (
+            "勢いやリズムを身体で感じ、"
+            "ライブ映えする音楽を楽しむタイプです。"
+        ),
     },
     "ESFP": {
         "name": "エンターテイナー",
-        "description": "明るく盛り上がる曲を好み、音楽を通してその場の空気を楽しくするタイプです。",
+        "description": (
+            "明るく盛り上がる曲を好むタイプ。"
+            "音楽を通して、その場の空気を"
+            "楽しくすることが得意です。"
+        ),
     },
 }
 
@@ -283,7 +413,7 @@ INITIAL_HEADPHONE_COLOR = "#9CA3AF"
 
 
 # =========================================================
-# 画面CSS
+# Streamlit全体CSS
 # =========================================================
 
 st.markdown(
@@ -301,6 +431,9 @@ st.markdown(
             line-height: 1.12;
             color: #444957;
             margin: 0 0 10px 0;
+            overflow: visible;
+            white-space: normal;
+            word-break: keep-all;
         }
 
         .main-sub {
@@ -332,6 +465,12 @@ st.markdown(
             transform: scale(1.3);
             margin-right: 8px;
         }
+
+        @media (max-width: 900px) {
+            .main-title {
+                font-size: 42px;
+            }
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -351,65 +490,110 @@ if "input_version" not in st.session_state:
 # =========================================================
 
 def ensure_data_file():
+    """CSVがない場合に新規作成する。"""
+
     if os.path.exists(DATA_FILE):
         return
 
-    with open(DATA_FILE, "w", newline="", encoding="utf-8-sig") as file:
-        writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS)
+    with open(
+        DATA_FILE,
+        "w",
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=CSV_COLUMNS,
+        )
         writer.writeheader()
 
 
 def load_records():
+    """CSVから登録曲を読み込む。"""
+
     ensure_data_file()
     records = []
 
     try:
-        with open(DATA_FILE, "r", newline="", encoding="utf-8-sig") as file:
+        with open(
+            DATA_FILE,
+            "r",
+            newline="",
+            encoding="utf-8-sig",
+        ) as file:
             reader = csv.DictReader(file)
 
             for row in reader:
                 if not row.get("id"):
                     continue
 
-                try:
-                    row["favorite"] = int(row.get("favorite", 1))
-                except ValueError:
-                    row["favorite"] = 1
+                row["favorite"] = int(
+                    row.get("favorite", 1)
+                )
 
                 row["themes"] = [
                     value
-                    for value in row.get("themes", "").split("|")
+                    for value in row.get(
+                        "themes",
+                        "",
+                    ).split("|")
                     if value
                 ]
 
                 row["vibes"] = [
                     value
-                    for value in row.get("vibes", "").split("|")
+                    for value in row.get(
+                        "vibes",
+                        "",
+                    ).split("|")
                     if value
                 ]
 
                 records.append(row)
 
-    except OSError:
-        st.error("保存データの読み込みに失敗しました。")
+    except (OSError, ValueError):
+        st.error(
+            "保存データの読み込みに失敗しました。"
+        )
 
     return records
 
 
 def save_records(records):
+    """登録曲をCSVへ保存する。"""
+
     try:
-        with open(DATA_FILE, "w", newline="", encoding="utf-8-sig") as file:
-            writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS)
+        with open(
+            DATA_FILE,
+            "w",
+            newline="",
+            encoding="utf-8-sig",
+        ) as file:
+            writer = csv.DictWriter(
+                file,
+                fieldnames=CSV_COLUMNS,
+            )
             writer.writeheader()
 
             for record in records:
                 row = record.copy()
-                row["themes"] = "|".join(row.get("themes", []))
-                row["vibes"] = "|".join(row.get("vibes", []))
+
+                if isinstance(row["themes"], list):
+                    row["themes"] = "|".join(
+                        row["themes"]
+                    )
+
+                if isinstance(row["vibes"], list):
+                    row["vibes"] = "|".join(
+                        row["vibes"]
+                    )
+
                 writer.writerow(row)
 
     except OSError:
-        st.error("データを保存できませんでした。")
+        st.error(
+            "データを保存できませんでした。"
+        )
 
 
 def add_record(
@@ -422,6 +606,8 @@ def add_record(
     main_color,
     sub_color,
 ):
+    """曲を登録する。"""
+
     records = load_records()
 
     records.append(
@@ -430,12 +616,14 @@ def add_record(
             "title": title.strip(),
             "artist": artist.strip(),
             "category": category,
-            "themes": list(themes),
-            "vibes": list(vibes),
+            "themes": themes,
+            "vibes": vibes,
             "favorite": int(favorite),
             "main_color": main_color,
             "sub_color": sub_color,
-            "created_at": datetime.now().isoformat(timespec="seconds"),
+            "created_at": datetime.now().isoformat(
+                timespec="seconds"
+            ),
         }
     )
 
@@ -443,20 +631,29 @@ def add_record(
 
 
 def delete_record(record_id):
+    """曲を削除する。"""
+
     records = load_records()
+
     records = [
         record
         for record in records
         if record["id"] != record_id
     ]
+
     save_records(records)
 
 
 # =========================================================
-# 配色処理
+# 配色に応じた文字色の計算
 # =========================================================
 
 def get_contrast_text_color(hex_color):
+    """
+    背景色が明るければ黒文字、
+    暗ければ白文字を返す。
+    """
+
     color = hex_color.lstrip("#")
 
     if len(color) != 6:
@@ -475,10 +672,15 @@ def get_contrast_text_color(hex_color):
         + blue * 114
     ) / 1000
 
-    return "#171717" if brightness >= 155 else "#FFFFFF"
+    if brightness >= 155:
+        return "#171717"
+
+    return "#FFFFFF"
 
 
 def hex_to_rgba(hex_color, alpha):
+    """16進数カラーをrgba形式に変換する。"""
+
     color = hex_color.lstrip("#")
 
     if len(color) != 6:
@@ -491,7 +693,9 @@ def hex_to_rgba(hex_color, alpha):
     except ValueError:
         return f"rgba(255,255,255,{alpha})"
 
-    return f"rgba({red},{green},{blue},{alpha})"
+    return (
+        f"rgba({red},{green},{blue},{alpha})"
+    )
 
 
 # =========================================================
@@ -499,30 +703,45 @@ def hex_to_rgba(hex_color, alpha):
 # =========================================================
 
 def create_record_card(record):
+    """レコード風カードをHTMLで作成する。"""
+
     title = html.escape(record["title"])
     artist = html.escape(record["artist"])
     category = html.escape(record["category"])
 
     themes = [
         html.escape(value)
-        for value in record.get("themes", [])
+        for value in record["themes"]
     ]
 
     vibes = [
         html.escape(value)
-        for value in record.get("vibes", [])
+        for value in record["vibes"]
     ]
 
-    main_color = record.get("main_color", "#F4C542")
-    sub_color = record.get("sub_color", "#1A1A1A")
+    main_color = record["main_color"]
+    sub_color = record["sub_color"]
 
-    main_text_color = get_contrast_text_color(main_color)
-    sub_text_color = get_contrast_text_color(sub_color)
+    main_text_color = get_contrast_text_color(
+        main_color
+    )
 
-    favorite = max(1, min(5, int(record.get("favorite", 1))))
-    stars = "★" * favorite + "☆" * (5 - favorite)
+    sub_text_color = get_contrast_text_color(
+        sub_color
+    )
 
-    visible_tags = [category] + themes[:2] + vibes[:2]
+    favorite = int(record["favorite"])
+
+    stars = (
+        "★" * favorite
+        + "☆" * (5 - favorite)
+    )
+
+    visible_tags = (
+        [category]
+        + themes[:2]
+        + vibes[:2]
+    )
 
     tags_html = "".join(
         f'<span class="tag">{tag}</span>'
@@ -530,8 +749,8 @@ def create_record_card(record):
     )
 
     if sub_text_color == "#171717":
-        tag_background = "rgba(255,255,255,0.34)"
-        tag_border = "rgba(0,0,0,0.28)"
+        tag_background = "rgba(255,255,255,0.32)"
+        tag_border = "rgba(0,0,0,0.30)"
     else:
         tag_background = "rgba(255,255,255,0.18)"
         tag_border = "rgba(255,255,255,0.42)"
@@ -547,6 +766,7 @@ def create_record_card(record):
 <html>
 <head>
 <meta charset="utf-8">
+
 <style>
     * {{
         box-sizing: border-box;
@@ -631,7 +851,8 @@ def create_record_card(record):
         top: 4%;
         border-radius: 50%;
         background: {sub_color};
-        border: 5px solid {hex_to_rgba(tonearm_color, 0.72)};
+        border: 5px solid
+            {hex_to_rgba(tonearm_color, 0.72)};
     }}
 
     .tonearm {{
@@ -675,6 +896,7 @@ def create_record_card(record):
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: {sub_text_color};
     }}
 
     .artist {{
@@ -684,6 +906,7 @@ def create_record_card(record):
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: {sub_text_color};
     }}
 
     .tags {{
@@ -717,6 +940,7 @@ def create_record_card(record):
 <body>
     <div class="card-wrap">
         <div class="record-card">
+
             <div class="top-area">
                 <div class="disc">
                     <div class="label"></div>
@@ -729,11 +953,23 @@ def create_record_card(record):
             </div>
 
             <div class="info">
-                <div class="title">{title}</div>
-                <div class="artist">{artist}</div>
-                <div class="tags">{tags_html}</div>
-                <div class="stars">{stars}</div>
+                <div class="title">
+                    {title}
+                </div>
+
+                <div class="artist">
+                    {artist}
+                </div>
+
+                <div class="tags">
+                    {tags_html}
+                </div>
+
+                <div class="stars">
+                    {stars}
+                </div>
             </div>
+
         </div>
     </div>
 </body>
@@ -742,6 +978,8 @@ def create_record_card(record):
 
 
 def show_record_card(record):
+    """レコードカードを表示する。"""
+
     components.html(
         create_record_card(record),
         height=455,
@@ -753,12 +991,20 @@ def show_record_card(record):
 # 診断処理
 # =========================================================
 
-def add_scores(total_scores, source_scores, weight):
+def add_scores(
+    total_scores,
+    source_scores,
+    weight,
+):
+    """診断スコアを加算する。"""
+
     for key, value in source_scores.items():
         total_scores[key] += value * weight
 
 
 def calculate_music_type(records):
+    """登録曲からMBTI風タイプを算出する。"""
+
     scores = {
         "E": 0,
         "I": 0,
@@ -771,25 +1017,37 @@ def calculate_music_type(records):
     }
 
     for record in records:
-        weight = 0.6 + int(record["favorite"]) * 0.4
+        weight = (
+            0.6
+            + int(record["favorite"]) * 0.4
+        )
 
         add_scores(
             scores,
-            CATEGORY_SCORES.get(record["category"], {}),
+            CATEGORY_SCORES.get(
+                record["category"],
+                {},
+            ),
             weight,
         )
 
         for theme in record["themes"]:
             add_scores(
                 scores,
-                THEME_SCORES.get(theme, {}),
+                THEME_SCORES.get(
+                    theme,
+                    {},
+                ),
                 weight,
             )
 
         for vibe in record["vibes"]:
             add_scores(
                 scores,
-                VIBE_SCORES.get(vibe, {}),
+                VIBE_SCORES.get(
+                    vibe,
+                    {},
+                ),
                 weight,
             )
 
@@ -803,7 +1061,13 @@ def calculate_music_type(records):
     return type_code, scores
 
 
-def calculate_axis_percentage(scores, left_key, right_key):
+def calculate_axis_percentage(
+    scores,
+    left_key,
+    right_key,
+):
+    """2つの傾向を割合へ変換する。"""
+
     left_score = scores[left_key]
     right_score = scores[right_key]
     total = left_score + right_score
@@ -811,8 +1075,14 @@ def calculate_axis_percentage(scores, left_key, right_key):
     if total == 0:
         return 50, 50
 
-    left_percentage = round(left_score / total * 100)
-    return left_percentage, 100 - left_percentage
+    left_percentage = round(
+        left_score / total * 100
+    )
+
+    return (
+        left_percentage,
+        100 - left_percentage,
+    )
 
 
 # =========================================================
@@ -820,11 +1090,14 @@ def calculate_axis_percentage(scores, left_key, right_key):
 # =========================================================
 
 def create_mbti_hero(type_code, color):
+    """MBTI文字入りヘッドホンを作成する。"""
+
     return f"""
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
+
 <style>
     body {{
         margin: 0;
@@ -876,11 +1149,19 @@ def create_mbti_hero(type_code, color):
 
 <body>
     <div class="hero">
-        <div class="title">あなたの音楽MBTI</div>
-        <div class="sub">音楽の傾向からタイプを表示します</div>
+        <div class="title">
+            あなたの音楽MBTI
+        </div>
+
+        <div class="sub">
+            音楽の傾向からタイプを表示します
+        </div>
 
         <div class="icon-wrap">
-            <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+            <svg
+                viewBox="0 0 360 220"
+                xmlns="http://www.w3.org/2000/svg"
+            >
                 <path
                     d="M92 150 A88 88 0 0 1 268 150"
                     fill="none"
@@ -889,10 +1170,41 @@ def create_mbti_hero(type_code, color):
                     stroke-linecap="round"
                 />
 
-                <rect x="48" y="108" width="46" height="88" rx="18" fill="{color}" />
-                <rect x="86" y="100" width="38" height="104" rx="16" fill="{color}" />
-                <rect x="266" y="108" width="46" height="88" rx="18" fill="{color}" />
-                <rect x="236" y="100" width="38" height="104" rx="16" fill="{color}" />
+                <rect
+                    x="48"
+                    y="108"
+                    width="46"
+                    height="88"
+                    rx="18"
+                    fill="{color}"
+                />
+
+                <rect
+                    x="86"
+                    y="100"
+                    width="38"
+                    height="104"
+                    rx="16"
+                    fill="{color}"
+                />
+
+                <rect
+                    x="266"
+                    y="108"
+                    width="46"
+                    height="88"
+                    rx="18"
+                    fill="{color}"
+                />
+
+                <rect
+                    x="236"
+                    y="100"
+                    width="38"
+                    height="104"
+                    rx="16"
+                    fill="{color}"
+                />
 
                 <text
                     x="180"
@@ -915,6 +1227,8 @@ def create_mbti_hero(type_code, color):
 # =========================================================
 
 def show_mbti_panel(records):
+    """左側に音楽MBTI診断を表示する。"""
+
     if not records:
         components.html(
             create_mbti_hero(
@@ -931,12 +1245,18 @@ def show_mbti_panel(records):
         )
         return
 
-    type_code, scores = calculate_music_type(records)
+    type_code, scores = calculate_music_type(
+        records
+    )
+
     type_info = TYPE_INFORMATION[type_code]
     type_color = MBTI_COLORS[type_code]
 
     components.html(
-        create_mbti_hero(type_code, type_color),
+        create_mbti_hero(
+            type_code,
+            type_color,
+        ),
         height=280,
         scrolling=False,
     )
@@ -958,7 +1278,9 @@ def show_mbti_panel(records):
         for vibe in record["vibes"]
     )
 
-    top_category = category_counter.most_common(1)[0][0]
+    top_category = (
+        category_counter.most_common(1)[0][0]
+    )
 
     top_theme = (
         theme_counter.most_common(1)[0][0]
@@ -973,40 +1295,69 @@ def show_mbti_panel(records):
     )
 
     average_favorite = (
-        sum(record["favorite"] for record in records)
+        sum(
+            record["favorite"]
+            for record in records
+        )
         / len(records)
     )
 
     result_html = (
-        f'<div style="border-left:7px solid {type_color};'
-        f'padding-left:16px;margin-bottom:16px;">'
-        f'<div style="color:{type_color};font-size:42px;'
-        f'font-weight:800;line-height:1.1;">'
-        f'{html.escape(type_code)}</div>'
-        f'<div style="color:{type_color};font-size:21px;'
-        f'font-weight:700;margin-top:7px;">'
-        f'{html.escape(type_info["name"])}</div>'
+        f'<div style="'
+        f'border-left:7px solid {type_color};'
+        f'padding-left:16px;'
+        f'margin-bottom:16px;">'
+        f'<div style="'
+        f'color:{type_color};'
+        f'font-size:42px;'
+        f'font-weight:800;'
+        f'line-height:1.1;">'
+        f'{html.escape(type_code)}'
+        f'</div>'
+        f'<div style="'
+        f'color:{type_color};'
+        f'font-size:21px;'
+        f'font-weight:700;'
+        f'margin-top:7px;">'
+        f'{html.escape(type_info["name"])}'
+        f'</div>'
         f'</div>'
     )
 
-    st.markdown(result_html, unsafe_allow_html=True)
-    st.write(type_info["description"])
+    st.markdown(
+        result_html,
+        unsafe_allow_html=True,
+    )
+
+    st.write(
+        type_info["description"]
+    )
 
     if len(records) < 5:
         st.caption(
-            "※ 登録曲が5曲未満のため、現在は仮診断です。"
+            "※ 登録曲が5曲未満のため、"
+            "現在は仮診断です。"
         )
 
     metric1, metric2, metric3 = st.columns(3)
 
     with metric1:
-        st.metric("登録曲数", f"{len(records)}曲")
+        st.metric(
+            "登録曲数",
+            f"{len(records)}曲",
+        )
 
     with metric2:
-        st.metric("最多区分", top_category)
+        st.metric(
+            "最多区分",
+            top_category,
+        )
 
     with metric3:
-        st.metric("平均★", f"{average_favorite:.1f}")
+        st.metric(
+            "平均★",
+            f"{average_favorite:.1f}",
+        )
 
     st.write("### 4つの音楽傾向")
 
@@ -1016,7 +1367,10 @@ def show_mbti_panel(records):
         ("T", "F"),
         ("J", "P"),
     ]:
-        left_percentage, right_percentage = calculate_axis_percentage(
+        (
+            left_percentage,
+            right_percentage,
+        ) = calculate_axis_percentage(
             scores,
             left_key,
             right_key,
@@ -1025,57 +1379,52 @@ def show_mbti_panel(records):
         left_col, right_col = st.columns(2)
 
         with left_col:
-            st.write(f"**{left_key} {left_percentage}%**")
+            st.write(
+                f"**{left_key} "
+                f"{left_percentage}%**"
+            )
 
         with right_col:
+            right_label_html = (
+                '<div style="'
+                'text-align:right;'
+                'font-weight:700;">'
+                f'{right_percentage}% '
+                f'{right_key}'
+                '</div>'
+            )
+
             st.markdown(
-                (
-                    '<div style="text-align:right;font-weight:700;">'
-                    f'{right_percentage}% {right_key}'
-                    '</div>'
-                ),
+                right_label_html,
                 unsafe_allow_html=True,
             )
 
-        st.progress(left_percentage / 100)
-
-    st.write("### 音楽の傾向")
-    st.write(f"**よく選ぶ区分**：{top_category}")
-    st.write(f"**多いテーマ**：{top_theme}")
-    st.write(f"**多い雰囲気**：{top_vibe}")
-
-    st.caption(
-        "この結果は、登録した音楽の区分・テーマ・雰囲気・"
-        "お気に入り度を使ったアプリ独自のエンタメ診断です。"
-    )
-
-
-# =========================================================
-# 星入力
-# =========================================================
-
-def show_star_input(version):
-    if hasattr(st, "feedback"):
-        selected_star = st.feedback(
-            "stars",
-            key=f"favorite_{version}",
+        st.progress(
+            left_percentage / 100
         )
 
-        if selected_star is None:
-            return None
+    st.write("### 音楽の傾向")
 
-        return selected_star + 1
-
-    selected = st.radio(
-        "お気に入り度",
-        options=[1, 2, 3, 4, 5],
-        format_func=lambda value: "★" * value,
-        horizontal=True,
-        index=None,
-        key=f"favorite_fallback_{version}",
+    st.write(
+        f"**よく選ぶ区分**："
+        f"{top_category}"
     )
 
-    return selected
+    st.write(
+        f"**多いテーマ**："
+        f"{top_theme}"
+    )
+
+    st.write(
+        f"**多い雰囲気**："
+        f"{top_vibe}"
+    )
+
+    st.caption(
+        "この結果は、登録した音楽の区分・"
+        "テーマ・雰囲気・お気に入り度を使った"
+        "アプリ独自のエンタメ診断です。"
+    )
 
 
 # =========================================================
@@ -1083,10 +1432,14 @@ def show_star_input(version):
 # =========================================================
 
 def show_add_form():
+    """曲登録フォームを表示する。"""
+
     version = st.session_state.input_version
 
     st.markdown(
-        '<div class="section-title">曲を登録する</div>',
+        '<div class="section-title">'
+        "曲を登録する"
+        "</div>",
         unsafe_allow_html=True,
     )
 
@@ -1094,34 +1447,37 @@ def show_add_form():
         (
             '<div class="helper-text">'
             "曲の内容や印象を選び、"
-            "オリジナルのレコードカードを作成します。"
+            "オリジナルのレコードカードを"
+            "作成します。"
             "</div>"
         ),
         unsafe_allow_html=True,
     )
 
-    # 入力欄は空欄
-    # 「恋」「星野源」は入力例としてだけ表示
     title = st.text_input(
         "曲名",
-        placeholder="例：恋",
+        value="恋",
+        placeholder="例：曲名を入力",
         key=f"title_{version}",
     )
 
     artist = st.text_input(
         "アーティスト名",
-        placeholder="例：星野源",
+        value="星野源",
+        placeholder="例：アーティスト名を入力",
         key=f"artist_{version}",
     )
 
     category = st.selectbox(
         "音楽の区分",
         MUSIC_CATEGORIES,
-        index=MUSIC_CATEGORIES.index("J-POP・邦楽"),
+        index=MUSIC_CATEGORIES.index(
+            "J-POP・邦楽"
+        ),
         key=f"category_{version}",
     )
 
-    if hasattr(st, "pills"):
+    try:
         themes = st.pills(
             "曲のテーマ（最大2つ）",
             THEMES,
@@ -1139,7 +1495,8 @@ def show_add_form():
             key=f"vibes_{version}",
             width="stretch",
         )
-    else:
+
+    except AttributeError:
         themes = st.multiselect(
             "曲のテーマ（最大2つ）",
             THEMES,
@@ -1156,14 +1513,26 @@ def show_add_form():
 
     st.write("#### お気に入り度")
 
-    favorite = show_star_input(version)
+    selected_star = st.feedback(
+        "stars",
+        key=f"favorite_{version}",
+    )
 
-    if favorite is None:
+    if selected_star is None:
         st.caption(
-            "星を押してお気に入り度を選択してください。"
+            "星を押してお気に入り度を"
+            "選択してください。"
         )
+
+        favorite = None
+
     else:
-        st.caption(f"お気に入り度：{favorite} / 5")
+        favorite = selected_star + 1
+
+        st.caption(
+            f"お気に入り度："
+            f"{favorite} / 5"
+        )
 
     st.write("#### カードの配色")
 
@@ -1192,14 +1561,20 @@ def show_add_form():
         errors = []
 
         if not title.strip():
-            errors.append("曲名を入力してください。")
+            errors.append(
+                "曲名を入力してください。"
+            )
 
         if not artist.strip():
-            errors.append("アーティスト名を入力してください。")
+            errors.append(
+                "アーティスト名を"
+                "入力してください。"
+            )
 
         if len(themes) == 0:
             errors.append(
-                "曲のテーマを1つ以上選択してください。"
+                "曲のテーマを1つ以上"
+                "選択してください。"
             )
 
         if len(themes) > 2:
@@ -1209,7 +1584,8 @@ def show_add_form():
 
         if len(vibes) == 0:
             errors.append(
-                "曲の雰囲気を1つ以上選択してください。"
+                "曲の雰囲気を1つ以上"
+                "選択してください。"
             )
 
         if len(vibes) > 3:
@@ -1219,19 +1595,21 @@ def show_add_form():
 
         if favorite is None:
             errors.append(
-                "お気に入り度の星を選択してください。"
+                "お気に入り度の星を"
+                "選択してください。"
             )
 
         if errors:
             for error in errors:
                 st.error(error)
+
         else:
             add_record(
                 title=title,
                 artist=artist,
                 category=category,
-                themes=themes,
-                vibes=vibes,
+                themes=list(themes),
+                vibes=list(vibes),
                 favorite=favorite,
                 main_color=main_color,
                 sub_color=sub_color,
@@ -1246,15 +1624,20 @@ def show_add_form():
 # =========================================================
 
 def show_collection(records):
+    """登録したレコードカードを表示する。"""
+
     st.markdown(
-        '<div class="section-title">コレクション</div>',
+        '<div class="section-title">'
+        "コレクション"
+        "</div>",
         unsafe_allow_html=True,
     )
 
     if not records:
         st.info(
             "まだ曲が登録されていません。"
-            "上の入力欄から最初の1曲を追加してください。"
+            "上の入力欄から最初の1曲を"
+            "追加してください。"
         )
         return
 
@@ -1269,13 +1652,17 @@ def show_collection(records):
         filtered_records = [
             record
             for record in records
-            if record["category"] == category_filter
+            if record["category"]
+            == category_filter
         ]
 
-    filtered_records = list(reversed(filtered_records))
+    filtered_records = list(
+        reversed(filtered_records)
+    )
 
     st.caption(
-        f"{len(filtered_records)}曲を表示しています。"
+        f"{len(filtered_records)}曲を"
+        "表示しています。"
     )
 
     for start_index in range(
@@ -1289,16 +1676,25 @@ def show_collection(records):
 
         columns = st.columns(2)
 
-        for column, record in zip(columns, row_records):
+        for column, record in zip(
+            columns,
+            row_records,
+        ):
             with column:
                 show_record_card(record)
 
                 if st.button(
                     "削除",
-                    key=f"delete_{record['id']}",
+                    key=(
+                        f"delete_"
+                        f"{record['id']}"
+                    ),
                     use_container_width=True,
                 ):
-                    delete_record(record["id"])
+                    delete_record(
+                        record["id"]
+                    )
+
                     st.rerun()
 
 
@@ -1309,25 +1705,34 @@ def show_collection(records):
 ensure_data_file()
 
 st.markdown(
-    '<div class="main-title">Music Personality</div>',
+    '<div class="main-title">'
+    "Music Personality"
+    "</div>",
     unsafe_allow_html=True,
 )
 
 st.markdown(
     (
         '<div class="main-sub">'
-        "好きな曲をレコードカードとして集めながら、"
-        "音楽の傾向からMBTI風タイプを楽しむアプリ"
+        "好きな曲をレコードカードとして"
+        "集めながら、音楽の傾向から"
+        "MBTI風タイプを楽しむアプリ"
         "</div>"
     ),
     unsafe_allow_html=True,
 )
 
+
+# =========================================================
+# MBTI説明
+# =========================================================
+
 with st.expander("MBTIとは？"):
     st.write(
         """
 MBTIは、人の考え方や行動の傾向を、
-4つの指標の組み合わせによって16タイプに分類する考え方です。
+4つの指標の組み合わせによって
+16タイプに分類する考え方です。
 
 - **E / I**：外向型・内向型
 - **S / N**：感覚型・直観型
@@ -1338,16 +1743,19 @@ MBTIは、人の考え方や行動の傾向を、
 4つの傾向を組み合わせたタイプを表します。
 
 このアプリでは、通常の質問式診断ではなく、
-登録した曲の区分・テーマ・雰囲気・お気に入り度をもとに、
+登録した曲の区分・テーマ・雰囲気・
+お気に入り度をもとに、
 音楽の好みを16タイプ風に分類します。
         """
     )
 
     st.caption(
-        "この結果は性格や能力を医学的・心理学的に"
-        "判定するものではなく、音楽の好みを楽しむための"
+        "この結果は性格や能力を"
+        "医学的・心理学的に判定するものではなく、"
+        "音楽の好みを楽しむための"
         "エンタメ診断です。"
     )
+
 
 records = load_records()
 
@@ -1366,8 +1774,3 @@ with right_column:
 
     st.divider()
     show_collection(records)
-'''
-
-path = Path("/mnt/data/test.py")
-path.write_text(code, encoding="utf-8")
-print(path)
